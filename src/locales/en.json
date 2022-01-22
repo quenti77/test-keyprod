@@ -1,0 +1,24 @@
+{
+	"dashboard": {
+		"section": {
+			"orders": {
+				"actions": {
+					"see": "See orders"
+				},
+				"title": "Manage orders"
+			},
+			"products": {
+				"actions": {
+					"see": "See products"
+				},
+				"title": "Manage products"
+			},
+			"shipments": {
+				"actions": {
+					"see": "See shipments"
+				},
+				"title": "Manage shipments"
+			}
+		}
+	}
+}
