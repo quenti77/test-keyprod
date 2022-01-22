@@ -19,6 +19,15 @@
 				},
 				"title": "Manage shipments"
 			}
+		},
+		"title": "Automate shipping management"
+	},
+	"locales": {
+		"en": {
+			"label": "English"
+		},
+		"fr": {
+			"label": "French"
 		}
 	}
 }

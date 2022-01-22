@@ -2,6 +2,11 @@
   <v-container>
     <v-row>
       <v-col>
+        <h2 class="text-h2 my-3">{{ $t('dashboard.title') }}</h2>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
         <v-card color="deep-purple darken-4">
           <v-card-title>
             {{ $t('dashboard.section.products.title') }}

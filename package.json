@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "uuid": "^8.3.2",
     "vue": "^2.6.14",
     "vue-i18n": "^8.26.3",
     "vue-router": "^3.5.1",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -21,6 +23,7 @@
     "@vue/cli-plugin-babel": "~5.0.0-rc.2",
     "@vue/cli-plugin-eslint": "~5.0.0-rc.2",
     "@vue/cli-plugin-router": "~5.0.0-rc.2",
+    "@vue/cli-plugin-vuex": "~5.0.0-rc.2",
     "@vue/cli-service": "~5.0.0-rc.2",
     "@vue/eslint-config-standard": "^6.1.0",
     "eslint": "^7.32.0",

@@ -19,6 +19,15 @@
 				},
 				"title": "Gérer les expéditions"
 			}
+		},
+		"title": "Automatiser la gestion des expéditions"
+	},
+	"locales": {
+		"en": {
+			"label": "Anglais"
+		},
+		"fr": {
+			"label": "Français"
 		}
 	}
 }
