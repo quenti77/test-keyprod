@@ -29,5 +29,28 @@
 		"fr": {
 			"label": "Français"
 		}
+	},
+	"orders": {
+		"index": {
+			"datatables": {
+				"headers": {
+					"actions": "Actions",
+					"client": "Client",
+					"orderState": "Statut",
+					"products": "Produits",
+					"ref": "Référence"
+				}
+			},
+			"products": {
+				"quantity": "Aucun produit | 1 produit en tout | {count} produits au total",
+				"type": "Aucun produit | 1 type de produits | {count} types de produits"
+			},
+			"state": {
+				"done": "Envoyée",
+				"preparing": "Préparation",
+				"sending": "En cours d'envoi"
+			},
+			"title": "Liste des commandes"
+		}
 	}
 }

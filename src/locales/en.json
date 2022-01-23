@@ -29,5 +29,28 @@
 		"fr": {
 			"label": "French"
 		}
+	},
+	"orders": {
+		"index": {
+			"datatables": {
+				"headers": {
+					"actions": "Actions",
+					"client": "Client",
+					"orderState": "Status",
+					"products": "Products",
+					"ref": "Reference"
+				}
+			},
+			"products": {
+				"quantity": "No product | 1 product in total | {count} products in total",
+				"type": "No product | 1 type of products | {count} product types"
+			},
+			"state": {
+				"done": "Sent",
+				"preparing": "Preparation",
+				"sending": "Sending"
+			},
+			"title": "List of orders"
+		}
 	}
 }

@@ -34,8 +34,8 @@ function initProducts () {
   ]
 }
 
-function createOrder (client, orderState) {
-  return { id: uuidV4(), client, orderState, products: [] }
+function createOrder (ref, client, orderState) {
+  return { id: uuidV4(), ref, client, orderState, products: [] }
 }
 
 function attachProductToOrder (order, product, quantity, preparationType) {
@@ -47,20 +47,38 @@ function attachProductToOrder (order, product, quantity, preparationType) {
 }
 
 function initOrders (clients, products) {
-  const prepareOrder = createOrder(clients[0], ORDER_STATE.PREPARING)
+  const prepareOrder = createOrder('C-411145', clients[0], ORDER_STATE.PREPARING)
   attachProductToOrder(prepareOrder, products[0], 1, PREPARATION_TYPE.WAITING)
   attachProductToOrder(prepareOrder, products[1], 1, PREPARATION_TYPE.DONE)
 
-  const sendOrder = createOrder(clients[1], ORDER_STATE.SENDING)
+  const sendOrder = createOrder('C-587496', clients[1], ORDER_STATE.SENDING)
   attachProductToOrder(sendOrder, products[2], 2, PREPARATION_TYPE.DONE)
   attachProductToOrder(sendOrder, products[3], 2, PREPARATION_TYPE.DONE)
 
+  const otherOrder = createOrder('C-751614', clients[0], ORDER_STATE.SENDING)
+  attachProductToOrder(otherOrder, products[0], 2, PREPARATION_TYPE.DONE)
+  attachProductToOrder(otherOrder, products[2], 1, PREPARATION_TYPE.DONE)
+  attachProductToOrder(otherOrder, products[3], 1, PREPARATION_TYPE.DONE)
+
+  const otherPrepareOrder = createOrder('C-102571', clients[1], ORDER_STATE.PREPARING)
+  attachProductToOrder(otherPrepareOrder, products[0], 1, PREPARATION_TYPE.WAITING)
+  attachProductToOrder(otherPrepareOrder, products[1], 1, PREPARATION_TYPE.WAITING)
+  attachProductToOrder(otherPrepareOrder, products[2], 3, PREPARATION_TYPE.WAITING)
+
+  const alreadySentOrder = createOrder('C-475841', clients[0], ORDER_STATE.DONE)
+  attachProductToOrder(alreadySentOrder, products[1], 1, PREPARATION_TYPE.DONE)
+  attachProductToOrder(alreadySentOrder, products[3], 1, PREPARATION_TYPE.DONE)
+
   initialState.orders = [
     prepareOrder,
-    sendOrder
+    sendOrder,
+    otherOrder,
+    otherPrepareOrder,
+    alreadySentOrder
   ]
 }
 
+// TODO: Review data for package or shipment
 function createPackage () {
   return { id: uuidV4(), products: [] }
 }

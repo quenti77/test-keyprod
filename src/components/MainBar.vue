@@ -1,7 +1,12 @@
 <template>
   <div>
     <v-app-bar dense elevation="4">
-      <v-toolbar-title>KeyProd</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/" tag="button" class="d-flex align-center">
+          <v-icon class="go-back mr-3">mdi-home</v-icon>
+          KeyProd
+        </router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-menu left bottom>
@@ -36,3 +41,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.router-link-exact-active .go-back {
+  display: none!important;
+}
+</style>
