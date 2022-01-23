@@ -5,9 +5,7 @@ import { PREPARATION_TYPE, ORDER_STATE } from '@/enums'
 const initialState = {
   clients: [],
   orders: [],
-  packages: [],
-  products: [],
-  shipments: []
+  products: []
 }
 
 function createClient (name, email) {
@@ -35,39 +33,45 @@ function initProducts () {
 }
 
 function createOrder (ref, client, orderState) {
-  return { id: uuidV4(), ref, client, orderState, products: [] }
+  return {
+    id: uuidV4(),
+    ref,
+    client,
+    orderState,
+    products: [],
+    packages: []
+  }
 }
 
-function attachProductToOrder (order, product, quantity, preparationType) {
+function attachProductToOrder (order, product, quantity) {
   order.products.push({
-    product,
-    quantity,
-    preparationType
+    item: JSON.parse(JSON.stringify(product)),
+    quantity
   })
 }
 
-function initOrders (clients, products) {
+function initOrders ({ clients, products }) {
   const prepareOrder = createOrder('C-411145', clients[0], ORDER_STATE.PREPARING)
-  attachProductToOrder(prepareOrder, products[0], 1, PREPARATION_TYPE.WAITING)
-  attachProductToOrder(prepareOrder, products[1], 1, PREPARATION_TYPE.DONE)
+  attachProductToOrder(prepareOrder, products[0], 1)
+  attachProductToOrder(prepareOrder, products[1], 1)
 
   const sendOrder = createOrder('C-587496', clients[1], ORDER_STATE.SENDING)
-  attachProductToOrder(sendOrder, products[2], 2, PREPARATION_TYPE.DONE)
-  attachProductToOrder(sendOrder, products[3], 2, PREPARATION_TYPE.DONE)
+  attachProductToOrder(sendOrder, products[2], 2)
+  attachProductToOrder(sendOrder, products[3], 2)
 
   const otherOrder = createOrder('C-751614', clients[0], ORDER_STATE.SENDING)
-  attachProductToOrder(otherOrder, products[0], 2, PREPARATION_TYPE.DONE)
-  attachProductToOrder(otherOrder, products[2], 1, PREPARATION_TYPE.DONE)
-  attachProductToOrder(otherOrder, products[3], 1, PREPARATION_TYPE.DONE)
+  attachProductToOrder(otherOrder, products[0], 2)
+  attachProductToOrder(otherOrder, products[2], 1)
+  attachProductToOrder(otherOrder, products[3], 1)
 
   const otherPrepareOrder = createOrder('C-102571', clients[1], ORDER_STATE.PREPARING)
-  attachProductToOrder(otherPrepareOrder, products[0], 1, PREPARATION_TYPE.WAITING)
-  attachProductToOrder(otherPrepareOrder, products[1], 1, PREPARATION_TYPE.WAITING)
-  attachProductToOrder(otherPrepareOrder, products[2], 3, PREPARATION_TYPE.WAITING)
+  attachProductToOrder(otherPrepareOrder, products[0], 1)
+  attachProductToOrder(otherPrepareOrder, products[1], 1)
+  attachProductToOrder(otherPrepareOrder, products[2], 3)
 
   const alreadySentOrder = createOrder('C-475841', clients[0], ORDER_STATE.DONE)
-  attachProductToOrder(alreadySentOrder, products[1], 1, PREPARATION_TYPE.DONE)
-  attachProductToOrder(alreadySentOrder, products[3], 1, PREPARATION_TYPE.DONE)
+  attachProductToOrder(alreadySentOrder, products[1], 1)
+  attachProductToOrder(alreadySentOrder, products[3], 1)
 
   initialState.orders = [
     prepareOrder,
@@ -78,65 +82,72 @@ function initOrders (clients, products) {
   ]
 }
 
-// TODO: Review data for package or shipment
-function createPackage () {
-  return { id: uuidV4(), products: [] }
+function createPackage (ref, packageState) {
+  return { id: uuidV4(), ref, packageState, products: [] }
 }
 
-function attachProductToPackage (pack, product) {
+function attachProductToPackage (pack, product, quantity, preparationType) {
   pack.products.push({
-    product
+    item: JSON.parse(JSON.stringify(product.item)),
+    quantity,
+    preparationType
   })
 }
 
-function initPackages (products) {
-  const soloPackage = createPackage()
-  attachProductToPackage(soloPackage, products[0])
-  attachProductToPackage(soloPackage, products[1])
-
-  const firstPartPackage = createPackage()
-  attachProductToPackage(firstPartPackage, products[2])
-  const secondPartPackage = createPackage()
-  attachProductToPackage(secondPartPackage, products[3])
-
-  initialState.packages = [
-    soloPackage,
-    firstPartPackage,
-    secondPartPackage
-  ]
+// Impossible to name parameters with "package" name
+function attachPackageToOrder (order, pack) {
+  order.packages.push(pack)
 }
 
-function createShipment (order = null) {
-  return { id: uuidV4(), order, packages: [] }
-}
+function initPackages ({ orders }) {
+  let currentOrder = orders[0]
 
-function attachPackageToShipment (shipment, pack, packageState) {
-  shipment.packages.push({
-    package: pack,
-    packageState
-  })
-}
+  const oneshotPackage = createPackage('P-727422', ORDER_STATE.PREPARING)
+  attachProductToPackage(oneshotPackage, currentOrder.products[0], 1, PREPARATION_TYPE.WAITING)
+  attachProductToPackage(oneshotPackage, currentOrder.products[1], 1, PREPARATION_TYPE.DONE)
+  attachPackageToOrder(currentOrder, oneshotPackage)
 
-function initShipments (packages, orders) {
-  const firstShipment = createShipment()
-  attachPackageToShipment(firstShipment, packages[0], ORDER_STATE.PREPARING)
+  currentOrder = orders[1]
+  const firstPartSplitPackage = createPackage('P-124573', ORDER_STATE.SENDING)
+  attachProductToPackage(firstPartSplitPackage, currentOrder.products[0], 1, PREPARATION_TYPE.DONE)
+  attachProductToPackage(firstPartSplitPackage, currentOrder.products[1], 1, PREPARATION_TYPE.DONE)
+  attachPackageToOrder(currentOrder, firstPartSplitPackage)
 
-  const secondShipment = createShipment(orders[1])
-  attachPackageToShipment(secondShipment, packages[1], ORDER_STATE.DONE)
-  attachPackageToShipment(secondShipment, packages[2], ORDER_STATE.SENDING)
+  const secondPartSplitPackage = createPackage('P-375421', ORDER_STATE.SENDING)
+  attachProductToPackage(secondPartSplitPackage, currentOrder.products[0], 1, PREPARATION_TYPE.DONE)
+  attachProductToPackage(secondPartSplitPackage, currentOrder.products[1], 1, PREPARATION_TYPE.DONE)
+  attachPackageToOrder(currentOrder, secondPartSplitPackage)
 
-  initialState.shipments = [
-    firstShipment,
-    secondShipment
-  ]
+  currentOrder = orders[2]
+  const alreadySentPackage = createPackage('P-347837', ORDER_STATE.DONE)
+  attachProductToPackage(alreadySentPackage, currentOrder.products[0], 1, PREPARATION_TYPE.DONE)
+  attachProductToPackage(alreadySentPackage, currentOrder.products[1], 1, PREPARATION_TYPE.DONE)
+  attachPackageToOrder(currentOrder, alreadySentPackage)
+
+  const needSendPackage = createPackage('P-4478523', ORDER_STATE.SENDING)
+  attachProductToPackage(needSendPackage, currentOrder.products[0], 1, PREPARATION_TYPE.DONE)
+  attachProductToPackage(needSendPackage, currentOrder.products[2], 1, PREPARATION_TYPE.DONE)
+  attachPackageToOrder(currentOrder, needSendPackage)
+
+  currentOrder = orders[3]
+  const bigPackage = createPackage('P-165313', ORDER_STATE.PREPARING)
+  attachProductToPackage(bigPackage, currentOrder.products[0], 1, PREPARATION_TYPE.DONE)
+  attachProductToPackage(bigPackage, currentOrder.products[1], 1, PREPARATION_TYPE.DONE)
+  attachProductToPackage(bigPackage, currentOrder.products[2], 3, PREPARATION_TYPE.WAITING)
+  attachPackageToOrder(currentOrder, bigPackage)
+
+  currentOrder = orders[4]
+  const alreadyDonePackage = createPackage('P-4478523', ORDER_STATE.DONE)
+  attachProductToPackage(alreadyDonePackage, currentOrder.products[0], 1, PREPARATION_TYPE.DONE)
+  attachProductToPackage(alreadyDonePackage, currentOrder.products[1], 1, PREPARATION_TYPE.DONE)
+  attachPackageToOrder(currentOrder, alreadyDonePackage)
 }
 
 if (process.env.NODE_ENV === 'development') {
   initClients()
   initProducts()
-  initOrders(initialState.clients, initialState.products)
-  initPackages(initialState.products)
-  initShipments(initialState.packages, initialState.orders)
+  initOrders(initialState)
+  initPackages(initialState)
 }
 
 export default initialState

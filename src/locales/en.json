@@ -51,6 +51,9 @@
 				"sending": "Sending"
 			},
 			"title": "List of orders"
+		},
+		"show": {
+			"title": "Details for order #{ref}"
 		}
 	}
 }

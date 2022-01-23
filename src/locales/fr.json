@@ -51,6 +51,9 @@
 				"sending": "En cours d'envoi"
 			},
 			"title": "Liste des commandes"
+		},
+		"show": {
+			"title": "Détails pour la commande #{ref}"
 		}
 	}
 }
