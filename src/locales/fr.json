@@ -1,0 +1,56 @@
+{
+	"dashboard": {
+		"section": {
+			"orders": {
+				"actions": {
+					"see": "Voir les commandes"
+				},
+				"title": "Gérer les commandes"
+			},
+			"products": {
+				"actions": {
+					"see": "Voir les produits"
+				},
+				"title": "Gérer les produits"
+			},
+			"shipments": {
+				"actions": {
+					"see": "Voir les expéditions"
+				},
+				"title": "Gérer les expéditions"
+			}
+		},
+		"title": "Automatiser la gestion des expéditions"
+	},
+	"locales": {
+		"en": {
+			"label": "Anglais"
+		},
+		"fr": {
+			"label": "Français"
+		}
+	},
+	"orders": {
+		"index": {
+			"datatables": {
+				"headers": {
+					"actions": "Actions",
+					"client": "Client",
+					"orderState": "Statut",
+					"products": "Produits",
+					"ref": "Référence"
+				}
+			},
+			"products": {
+				"quantity": "Aucun produit | 1 produit en tout | {count} produits au total",
+				"type": "Aucun produit | 1 type de produits | {count} types de produits"
+			},
+			"state": {
+				"done": "Envoyée",
+				"preparing": "Préparation",
+				"sending": "En cours d'envoi"
+			},
+			"title": "Liste des commandes"
+		}
+	}
+}
