@@ -9,32 +9,28 @@
     </v-row>
     <v-row>
       <v-col>
-        <v-data-table :items="orders" :headers="headers" :items-per-page="5"
+        <v-data-table :items="transformOrders" :headers="headers" :items-per-page="5"
                       sort-by="ref" class="elevation-2">
           <template #[`item.client`]="{ item }">
-            <strong>{{ getClientName(item) }}</strong>
+            <strong>{{ item.client.name }}</strong>
             <br>
             <small>
-              <em>{{ getClientEmail(item) }}</em>
+              <em>{{ item.client.email }}</em>
             </small>
           </template>
           <template #[`item.orderState`]="{ item }">
-            <v-chip class="ma-2" :color="getOrderStateColor(item)">
-              {{ getOrderStateLabel(item) }}
+            <v-chip class="my-2" small :color="item.orderState.color">
+              {{ item.orderState.label }}
             </v-chip>
           </template>
           <template #[`item.products`]="{ item }">
             <strong>
-              {{ $tc('orders.index.products.type', item.products.length, { count: item.products.length }) }}
+              {{ $tc('orders.index.products.type', item.productCount, { count: item.productCount }) }}
             </strong>
             <br>
             <small>
               <em>
-                {{ $tc(
-                  'orders.index.products.quantity',
-                  getTotalProducts(item),
-                  { count: getTotalProducts(item) }
-                ) }}
+                {{ $tc('orders.index.products.quantity', item.productTotal, { count: item.productTotal }) }}
               </em>
             </small>
           </template>
@@ -65,22 +61,22 @@ export default {
   computed: {
     ...mapGetters([
       'orders'
-    ])
+    ]),
+    transformOrders () {
+      return this.orders.map(({ id, ref, client, products, orderState }) => {
+        return {
+          id,
+          ref,
+          client,
+          orderState: orderStates[orderState],
+          productCount: products.length,
+          productTotal: this.getTotalProducts(products)
+        }
+      })
+    }
   },
   methods: {
-    getClientName ({ client }) {
-      return client.name
-    },
-    getClientEmail ({ client }) {
-      return client.email
-    },
-    getOrderStateColor ({ orderState }) {
-      return orderStates[orderState].color
-    },
-    getOrderStateLabel ({ orderState }) {
-      return orderStates[orderState].label
-    },
-    getTotalProducts ({ products }) {
+    getTotalProducts (products) {
       return products.reduce((prev, product) => prev + product.quantity, 0)
     }
   }

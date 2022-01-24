@@ -41,6 +41,10 @@
 					"ref": "Reference"
 				}
 			},
+			"preparation": {
+				"done": "Completed",
+				"waiting": "Waiting"
+			},
 			"products": {
 				"quantity": "No product | 1 product in total | {count} products in total",
 				"type": "No product | 1 type of products | {count} product types"
@@ -51,6 +55,37 @@
 				"sending": "Sending"
 			},
 			"title": "List of orders"
+		},
+		"show": {
+			"back": {
+				"link": "Return to list of orders"
+			},
+			"datatables": {
+				"headers": {
+					"name": "Name",
+					"preparationType": "Status",
+					"quantity": "Quantity",
+					"ref": "Reference",
+					"weight": "Weight"
+				}
+			},
+			"errors": {
+				"not_found": {
+					"description": "The command you requested does not exist.",
+					"title": "No commands found"
+				}
+			},
+			"packages": {
+				"add": "Create a package",
+				"name": "Package #{ref}",
+				"title": "Package list:",
+				"totalWeight": "(Total: {total})"
+			},
+			"products": {
+				"add": "Scan a Product",
+				"title": "Products List:"
+			},
+			"title": "Details for order #{ref}"
 		}
 	}
 }
