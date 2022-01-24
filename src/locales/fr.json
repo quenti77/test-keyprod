@@ -41,6 +41,10 @@
 					"ref": "Référence"
 				}
 			},
+			"preparation": {
+				"done": "Terminé",
+				"waiting": "En attente"
+			},
 			"products": {
 				"quantity": "Aucun produit | 1 produit en tout | {count} produits au total",
 				"type": "Aucun produit | 1 type de produits | {count} types de produits"
@@ -53,6 +57,34 @@
 			"title": "Liste des commandes"
 		},
 		"show": {
+			"back": {
+				"link": "Revenir à la liste des commandes"
+			},
+			"datatables": {
+				"headers": {
+					"name": "Nom",
+					"preparationType": "Statut",
+					"quantity": "Quantité",
+					"ref": "Référence",
+					"weight": "Poids"
+				}
+			},
+			"errors": {
+				"not_found": {
+					"description": "La commande que vous demandez n'existe pas.",
+					"title": "Aucune commande trouvée"
+				}
+			},
+			"packages": {
+				"add": "Créer un colis",
+				"name": "Colis #{ref}",
+				"title": "Liste des colis :",
+				"totalWeight": "(Total: {total})"
+			},
+			"products": {
+				"add": "Scanner un produit",
+				"title": "Liste des produits :"
+			},
 			"title": "Détails pour la commande #{ref}"
 		}
 	}
