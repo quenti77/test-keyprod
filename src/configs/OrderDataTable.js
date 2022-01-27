@@ -5,7 +5,7 @@ export const headers = [
   { text: i18n.t('orders.index.datatables.headers.ref'), value: 'ref' },
   { text: i18n.t('orders.index.datatables.headers.orderState'), value: 'orderState', align: 'start' },
   { text: i18n.t('orders.index.datatables.headers.client'), value: 'client', sortable: false },
-  { text: i18n.t('orders.index.datatables.headers.products'), value: 'products', sortable: false },
+  { text: i18n.t('orders.index.datatables.headers.products'), value: 'products' },
   { text: i18n.t('orders.index.datatables.headers.actions'), value: 'actions', sortable: false, align: 'center' }
 ]
 

@@ -5,6 +5,8 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import store from './store'
 
+global.store = store
+
 Vue.config.productionTip = false
 
 new Vue({

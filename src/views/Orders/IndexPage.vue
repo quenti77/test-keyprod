@@ -8,6 +8,14 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col class="mb-5 d-flex justify-end">
+        <v-btn color="success">
+          <v-icon class="mr-2">mdi-plus-circle</v-icon>
+          {{ $t('orders.index.add') }}
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col>
         <v-data-table :items="transformOrders" :headers="headers" :items-per-page="5"
                       sort-by="ref" class="elevation-2">

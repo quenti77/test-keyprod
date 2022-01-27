@@ -32,6 +32,7 @@
 	},
 	"orders": {
 		"index": {
+			"add": "Ajouter une commande",
 			"datatables": {
 				"headers": {
 					"actions": "Actions",

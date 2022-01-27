@@ -33,7 +33,7 @@
         </router-link>
         <h4 class="text-h4 mt-10 mb-4 d-flex justify-space-between">
           <span>{{ $t('orders.show.products.title') }}</span>
-          <v-btn color="success">
+          <v-btn color="success" v-if="orderCanAddProduct">
             <v-icon class="mr-2">mdi-plus-circle</v-icon>
             {{ $t('orders.show.products.add') }}
           </v-btn>
@@ -53,7 +53,7 @@
       <v-col :cols="12">
         <h4 class="text-h4 mt-10 mb-4 d-flex justify-space-between">
           <span>{{ $t('orders.show.packages.title') }}</span>
-          <v-btn color="success">
+          <v-btn color="success" v-if="orderCanAddProduct">
             <v-icon class="mr-2">mdi-plus-circle</v-icon>
             {{ $t('orders.show.packages.add') }}
           </v-btn>
@@ -98,6 +98,8 @@ import {
   packageProductHeaders
 } from '@/configs/OrderDataTable'
 
+import { ORDER_STATE } from '@/enums'
+
 export default {
   data () {
     return {
@@ -111,6 +113,9 @@ export default {
     ]),
     orderByRouteParam () {
       return this.orderById(this.$route.params.orderId)
+    },
+    orderCanAddProduct () {
+      return this.orderByRouteParam.orderState === ORDER_STATE.PREPARING
     },
     products () {
       return this.orderByRouteParam.products.map(({ item, quantity }) => {
